@@ -11,10 +11,16 @@ class ProjectUtils{
 
 List<ProjectUtils> projects = [
   ProjectUtils(
+      title: "Crypto Questor",
+      subtitle: "Firebase, Auth, Provider, MVVM",
+      image: "assets/projects/cryp.png",
+      githubLink: "https://github.com/MhYldrm/Crypto_Questor"
+  ),
+  ProjectUtils(
       title: "Tennis Management",
       subtitle: "Firebase, Auth, Provider, MVVM",
       image: "assets/projects/tn.png",
-      githubLink: "https://github.com/MhYldrm/Tennis-Management"
+      githubLink: "https://github.com/MhYldrm/Tenis-Management"
   ),
   ProjectUtils(
       title: "Delivery App",

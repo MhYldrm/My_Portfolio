@@ -1,24 +1,33 @@
 import 'package:flutter/material.dart';
 import 'package:my_portfolio/constants/links.dart';
 import 'package:my_portfolio/constants/size.dart';
+import 'package:my_portfolio/services/firebase_services.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 import '../constants/colors.dart';
 import 'custom_textfield.dart';
 
-class ContactSec extends StatelessWidget {
+class ContactSec extends StatefulWidget {
   const ContactSec({super.key});
 
   @override
-  Widget build(BuildContext context) {
+  State<ContactSec> createState() => _ContactSecState();
+}
 
+class _ContactSecState extends State<ContactSec> {
+
+  TextEditingController nameController = TextEditingController();
+  TextEditingController mailController = TextEditingController();
+  TextEditingController messageController = TextEditingController();
+
+  @override
+  Widget build(BuildContext context) {
 
     launch(Uri url) async {
       if (!await launchUrl(url)) {
         throw Exception('Could not launch $url');
       }
     }
-
     return Container(
       padding: const EdgeInsets.fromLTRB(25, 20, 25, 60),
       color: CustomColors.bgLight2,
@@ -41,16 +50,27 @@ class ContactSec extends StatelessWidget {
           const SizedBox(height: 15,),
           ConstrainedBox(
             constraints: const BoxConstraints(maxWidth: 700),
-            child: const CustomTextField(
+            child: CustomTextField(
               hintText: "Your message",
-              maxLines: 16,),
+              maxLines: 16,
+              controller: messageController,
+            ),
           ),
           const SizedBox(height: 20,),
           ConstrainedBox(
             constraints: const BoxConstraints(maxWidth: 700),
             child: SizedBox(
                 width: double.maxFinite,
-                child: ElevatedButton(onPressed: (){},style: ElevatedButton.styleFrom(
+                child: ElevatedButton(onPressed: ()async{
+                  await FirebaseServices().addMessage(
+                      nameController.text,
+                      mailController.text,
+                      messageController.text);
+                  nameController.clear();
+                  mailController.clear();
+                  messageController.clear();
+                  },
+                    style: ElevatedButton.styleFrom(
                     backgroundColor: const Color(0xffE3994E),
                 ), child: const Text("Get in Touch",style: TextStyle(color: Colors.white,fontSize: 15)))),
           ),
@@ -102,29 +122,37 @@ class ContactSec extends StatelessWidget {
   }
 
   Row buildNameEmailTextFieldDesktop (){
-    return const Row(
+    return  Row(
       children: [
         Flexible(
             child: CustomTextField(
-              hintText: "Your name",)),
-        SizedBox(width: 15,),
+              hintText: "Your name",
+              controller: nameController,
+            )),
+        const SizedBox(width: 15,),
         Flexible(
             child: CustomTextField(
-              hintText: "Your e-mail",)),
+              hintText: "Your e-mail",
+              controller: mailController,
+            )),
       ],
     );
   }
 
   Column buildNameEmailTextFieldMobile (){
-    return const Column(
+    return Column(
       children: [
         Flexible(
             child: CustomTextField(
-              hintText: "Your name",)),
-        SizedBox(height: 15,),
+              hintText: "Your name",
+              controller: nameController,
+            )),
+        const SizedBox(height: 15,),
         Flexible(
             child: CustomTextField(
-              hintText: "Your e-mail",)),
+              hintText: "Your e-mail",
+              controller: mailController,
+            )),
       ],
     );
   }
