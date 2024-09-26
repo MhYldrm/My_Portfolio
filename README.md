@@ -1,7 +1,9 @@
-# my_portfolio
+# M.Y's Portfolio
 
-Here is my portfolio app
+Here is my portfolio web app
 
-## Getting Started
+- Web Screens
 
-This project is a starting point for a Flutter application.
+<img width="371" alt="Ekran Resmi 2024-09-26 04 18 28" src="https://github.com/user-attachments/assets/a32e0e08-8ec9-4122-a242-4395acbe187a">
+
+
